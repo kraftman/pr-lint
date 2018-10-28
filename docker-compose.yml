@@ -3,9 +3,11 @@ services:
   app:
     build: pr-lint
     volumes:
-     - ./pr-lint/src:/go/src/app
+     - ./pr-lint:/go/src/app
     ports:
      - "8080:8080"
     command: bash
+    environment:
+      - GOPATH=/go/src/app
   redis:
     image: redis
