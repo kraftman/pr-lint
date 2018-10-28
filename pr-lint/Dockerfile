@@ -1,6 +1,19 @@
-FROM golang:1.11.1
-RUN apt-get update && apt-get install git
+FROM node:10
 
-RUN go get -u github.com/golang/dep/cmd/dep
+# Create app directory
+WORKDIR /usr/src/app
+RUN npm install -g yarn
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package.json ./
+COPY yarn.lock ./
 
-WORKDIR /go/src/app
+RUN yarn
+# If you are building your code for production
+# RUN npm install --only=production
+
+# Bundle app sourc
+
+EXPOSE 8080
+CMD [ "yarn", "start" ]

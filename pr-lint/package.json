@@ -1,0 +1,52 @@
+{
+  "name": "create-node-app",
+  "version": "1.0.0",
+  "description": "Basic boilerplate node app",
+  "main": "src/fastify/index.js",
+  "repository": "git@github.com:kraftman/create-node-app.git",
+  "author": "Chris <me@itschr.is>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/fastify/index.js",
+    "dev": "nodemon src/fastify/index.js",
+    "start-express": "node src/express/index.js",
+    "start-debug": "node --inspect src/fastify/index.js",
+    "precommit": "lint-staged",
+    "unit": "mocha ./src/**/*.spec.js",
+    "unit-debug": "mocha --inspect-brk ./src/unit/**/*.spec.js",
+    "e2e": "mocha ./e2e/**/*.spec.js",
+    "e2e-debug": "mocha --inspect-brk ./e2e/**/*.spec.js",
+    "test": "mocha ./{src,e2e}/**/*.spec.js",
+    "test-cov": "nyc mocha ./{src,e2e}/**/*.spec.js",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "fastify": "^1.12.1",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "codecov": "^3.1.0",
+    "eslint": "5.7.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "3.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-prettier": "3.0.0",
+    "husky": "1.1.2",
+    "lint-staged": "7.3.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.4",
+    "nyc": "13.1.0",
+    "prettier": "1.14.3",
+    "sinon": "7.0.0",
+    "supertest": "3.3.0"
+  }
+}

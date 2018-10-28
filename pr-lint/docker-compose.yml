@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  redis:
+    restart: always
+    image: redis
+    expose:
+      - "6379"
+  node:
+    build: .
+    expose:
+      - "80"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    command: yarn dev
