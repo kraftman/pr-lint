@@ -54,3 +54,7 @@ API:
 
 Display:
 - Show graphs etc
+
+
+TODO: 
+- also grab comments for reviews so they can be counted per reviewer
