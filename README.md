@@ -11,9 +11,9 @@ Per day/week/month:
 
 - TTM - time to merge
 - TTR - time to review
-- \# PRs created
-- \# PRs merged
-- \# PRs closed
+- \# PRs created total
+  - \# PRs merged
+  - \# PRs closed
 
 Per Reviewer:
 

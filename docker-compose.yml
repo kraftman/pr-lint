@@ -1,13 +1,16 @@
 version: '3'
+
 services:
-  app:
-    build: pr-lint
-    volumes:
-     - ./pr-lint:/go/src/app
-    ports:
-     - "8080:8080"
-    command: bash
-    environment:
-      - GOPATH=/go/src/app
   redis:
+    restart: always
     image: redis
+    ports:
+      - "6379:6379"
+  node:
+    build: pr-lint-node/.
+    expose:
+      - "80"
+    volumes:
+      - ./pr-lint-node/:/usr/src/app
+      - /usr/src/app/node_modules
+    command: yarn dev
