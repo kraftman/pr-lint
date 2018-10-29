@@ -28,7 +28,7 @@ const parsePull = (rawPull, rawReviews) => {
   const closedAt = toEpoch(rawPull.closed_at);
   const mergedAt = toEpoch(rawPull.merged_at);
 
-  const timeToClose = closedAt - createdAt;
+  const timeToClose = closedAt && closedAt - createdAt;
   const timeToMerge = mergedAt && mergedAt - createdAt;
   const timeToResolve = timeToMerge || timeToClose;
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const dal = require('./dal/pulldal.js');
+const dal = require('./dal/dal-write.js');
 const parser = require('./bl/parser.js');
 const api = require('./external/github-api.js')
 

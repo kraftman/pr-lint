@@ -15,7 +15,7 @@ const createConfig = (URI) => {
 
 
 const getPRs = async (baseURI) => {
-  const pullURI = baseURI+'/pulls?state=all&per_page=2'
+  const pullURI = baseURI+'/pulls?state=all&per_page=10'
   try {
     const config = createConfig(pullURI)
     const result = await axios(config);

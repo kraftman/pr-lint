@@ -10,6 +10,8 @@
     "start": "node src/index.js",
     "dev": "nodemon src/parse.js",
     "dev-debug": "nodemon --inspect-brk src/parse.js",
+    "query": "nodemon src/query.js",
+    "query-debug": "nodemon --inspect-brk src/query.js",
     "start-express": "node src/express/index.js",
     "start-debug": "node --inspect src/fastify/index.js",
     "precommit": "lint-staged",
@@ -28,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "async-redis": "1.1.4",
     "axios": "0.18.0",
     "bluebird": "3.5.2",
     "body-parser": "^1.18.3",
