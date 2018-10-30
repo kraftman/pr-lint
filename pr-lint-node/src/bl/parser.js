@@ -52,7 +52,7 @@ const parsePull = (rawPull, rawReviews) => {
     commits: rawPull.commits,
     additions: rawPull.additions,
     deletions: rawPull.deletions,
-    changes: rawPull.changes,
+    changes: rawPull.additions + rawPull.deletions,
     changedFiles: rawPull.changed_files,
     comments: rawPull.comments,
     reviewsTotal,
@@ -69,7 +69,8 @@ const getUsers = (pull, reviews, commits) => {
   if (!uniqueUsers[pull.user.id]) {
     uniqueUsers[pull.user.id] = {
       id: pull.user.id,
-      name: pull.user.login
+      name: pull.user.login,
+      badge: pull.user.avatar_url,
     }
   }
   for (const commitID in commits) {
