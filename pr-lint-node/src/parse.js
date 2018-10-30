@@ -4,9 +4,12 @@ const dal = require('./dal/dal-write.js');
 const parser = require('./bl/parser.js');
 const api = require('./external/github-api.js')
 
+const baseDomain = 'https://api.github.com/';
+const org = 'kraftman';
+const repo = 'create-node-app';
 
 const run = async (org, repo) => {
-  const baseURI = `https://api.github.com/repos/${org}/${repo}`
+  const baseURI = baseDomain + `/repos/${org}/${repo}`
   const pulls = await api.getPRs(baseURI);
   const parsedPulls = [];
   const parsedReviews = [];
@@ -35,7 +38,5 @@ const run = async (org, repo) => {
 }
 
 
-const org = 'kraftman';
-const repo = 'create-node-app';
 
 run(org, repo);

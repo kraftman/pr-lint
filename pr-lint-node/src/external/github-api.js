@@ -1,13 +1,14 @@
 
 const axios = require('axios')
 require('dotenv').config();
+const token = ''; //process.env.GITHUB_TOKEN
 
 const createConfig = (URI) => {
   return {
     method: 'GET',
     url: URI,
     headers: {
-      Authorization: 'token ' + process.env.GITHUB_TOKEN,
+      Authorization: 'token ' + tempkey,
     },
     json: true,
   };

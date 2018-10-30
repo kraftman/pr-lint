@@ -14,6 +14,11 @@ const getPRs = async (org, repo, startAt, endAt) => {
   return prs
 }
 
+const getCreators = async (prs) => {
+  const creatorIDs = prs.map(pr => pr.createdByID);
+  return await dal.getUsers(creatorIDs)
+}
+
 const addPRToInterval = (pr, interval) => {
 
   const stats = interval.prStats
@@ -111,10 +116,13 @@ const getIntervals = (start, end, intervalSize) => {
   return intervals
 }
 
-const getCreatorStatTotals = (creatorStats) => {
+const getCreatorStatTotals = (creatorStats, creators) => {
   const converted = {}
   for(const [creatorID, stats] of Object.entries(creatorStats)) {
-    converted[creatorID] = {
+    const creator = creators.find(creator => creator.id === creatorID)
+    converted[creator.name] = {
+      name: creator.name,
+      id: creator.id,
       opened: stats.opened,
       closed: stats.closed,
       linesChanged: Math.floor((stats.totalLinesChanged)/stats.opened + 0.5),
@@ -137,11 +145,11 @@ const getPRStatTotals = (prStats, total) => {
   }
 }
 
-const convertIntervals = (intervals) => {
+const convertIntervals = (intervals, creators) => {
   const converted = {
     total: {
       prStats: getPRStatTotals(intervals.total.prStats, intervals.total.prStats.total),
-      creatorStats: getCreatorStatTotals(intervals.total.creatorStats)
+      creatorStats: getCreatorStatTotals(intervals.total.creatorStats, creators)
     },
     intervals: {},
   }
@@ -154,7 +162,7 @@ const convertIntervals = (intervals) => {
       end: interval.end,
       opened: interval.prStats.total,
       prStats: getPRStatTotals(interval.prStats, interval.prStats.total),
-      creatorStats: getCreatorStatTotals(interval.creatorStats),
+      creatorStats: getCreatorStatTotals(interval.creatorStats, creators),
       prs: interval.prs,
     }
   })
@@ -163,12 +171,13 @@ const convertIntervals = (intervals) => {
 
 const getStats = async (org, repo, startAt, endAt, interval) => {
   const prs = await getPRs(org, repo, startAt, endAt);
+  const creators = await getCreators(prs);
 
   const intervalSize = rangeMap[interval];
   const intervals = getIntervals(startAt, endAt, intervalSize)
 
   sortPrsToIntervals(prs, intervals)
-  const out = convertIntervals(intervals)
+  const out = convertIntervals(intervals, creators)
 
   return out
 }

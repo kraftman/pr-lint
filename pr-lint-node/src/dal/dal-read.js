@@ -24,7 +24,7 @@ const getPRs = async (pullIds) => {
 const getUsers = async (userIds) => {
   const users = []
   for (const userID of userIds) {
-    const res = await client.hgetall(userID)
+    const res = await client.hgetall('user:'+userID)
     users.push(res)
   }
   return users
