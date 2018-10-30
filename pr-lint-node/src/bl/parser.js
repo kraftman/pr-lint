@@ -75,7 +75,7 @@ const getUsers = (pull, reviews, commits) => {
   }
   for (const commitID in commits) {
     const commit = commits[commitID]
-    if (!uniqueUsers[commit.author.id]) {
+    if (commit.author && !uniqueUsers[commit.author.id]) {
       uniqueUsers[commit.author.id] = {
         id: commit.author.id,
         name: commit.author.login
